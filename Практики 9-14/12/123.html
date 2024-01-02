@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список</title>
+</head>
+
+<body>
+
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+          const ul = document.getElementById('myul');
+
+          async function add() {
+            let text;
+
+            do {
+              text = await getText();
+              
+              if (text !== null && text !== "") {
+                const li = document.createElement('li');
+                li.textContent = text;
+                ul.insertAdjacentHTML('beforeend', li.outerHTML);
+              }
+            } while (text !== null && text !== "");
+          }
+
+          async function getText() {
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve(prompt("Введите текст:"));
+              }, 0);
+            });
+          }
+
+          add();
+        });
+    </script>
+
+    <ul id="myul"></ul>
+
+</body>
+
+</html>

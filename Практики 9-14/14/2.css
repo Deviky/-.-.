@@ -1,0 +1,19 @@
+#mini-gallery img {
+    width: 50px;
+    filter: blur(0.9px);
+}
+
+#mini-gallery .selected {
+    filter: blur(0);
+    border-radius: 50%;
+}
+
+#main-image {
+    width: 250px;
+}
+
+#mini-gallery {
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+}

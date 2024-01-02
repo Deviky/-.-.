@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .content {
+            margin: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .content-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background-color: yellow;
+        }
+        
+        #scrollPosition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+    <title>Dynamic Scroll Update</title>
+</head>
+
+<body>
+    <div id="scrollPosition">Scroll Position: 0</div>
+
+    <div class="content" id="content">
+        <p> """""""""</p>
+        <img src="https://hypeava.ru/uploads/posts/2023-05/1683013797_1.jpg" alt="Image 1" class="content-image">
+        <p>More...</p>
+        <img src="https://hypeava.ru/uploads/posts/2023-05/1683013797_1.jpg" alt="Image 2" class="content-image">
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.getElementById('content');
+            const scrollPositionElement = document.getElementById('scrollPosition');
+
+            function updateContentOnScroll() {
+                const scrollPosition = window.scrollY;
+
+                if (scrollPosition > 600) {
+                    content.classList.add('highlight');
+                } else {
+                    content.classList.remove('highlight');
+                }
+
+
+                scrollPositionElement.textContent = 'Scroll Position: ' + scrollPosition + 'px';
+            }
+
+            function handleScroll() {
+                requestAnimationFrame(updateContentOnScroll);
+            }
+
+
+            window.addEventListener('scroll', handleScroll);
+
+
+            updateContentOnScroll();
+        });
+    </script>
+</body>
+
+</html>

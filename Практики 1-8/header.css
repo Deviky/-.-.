@@ -1,0 +1,148 @@
+header {
+    position: fixed;
+    background: linear-gradient(to bottom, #F41864, 75%, #FDEEE7);
+    top: 0;
+    padding: 10px;
+    height: 60px;
+    width: 100%;
+    justify-content: space-between;
+    text-align: center;
+    z-index: 2;
+}
+
+header img {
+    max-height: 100%; 
+    max-width: auto;
+    vertical-align: middle; 
+}
+
+
+header nav ul {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0; 
+}
+
+
+header nav li {
+    display: inline;
+    margin-right: 100px;
+}
+
+
+header nav a {
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    color: #FFF; 
+    font-weight: bold; 
+}
+
+
+header nav a:hover {
+    color: #F6F600;
+}
+
+.menu-toggle {
+    display: none; /* Скрываем чекбокс */
+}
+
+.burger-menu {
+    cursor: pointer;
+    flex-direction: column;
+    max-height: 75%; 
+    max-width: auto;
+    visibility: hidden;
+    float: right;
+    vertical-align: middle;
+    padding-right: 20px;
+}
+
+.burger-menu .bar {
+    width: 30px;
+    height: 3px;
+    background: #FFF;
+    margin: 3px 0;
+    transition: 0.4s;
+    position: relative;
+}
+
+/* Убираем видимость и устанавливаем размер toogle-button на 0 */
+#menu-toggle {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+#menu-toggle:checked + .burger-menu {
+    display: flex;
+}
+
+#menu-toggle:checked + .burger-menu .bar:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+}
+
+#menu-toggle:checked + .burger-menu .bar:nth-child(2) {
+    opacity: 0;
+}
+
+#menu-toggle:checked + .burger-menu .bar:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 768px) {
+    header nav ul {
+        display: none;
+    }
+
+    .burger-menu {
+        visibility: visible;
+        display: flex;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        background: linear-gradient(to top, #F41864, 90%, #FDEEE7);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    #menu-toggle:checked + .burger-menu + nav ul {
+        display: flex;
+    }
+
+    header nav li {
+        margin-right: 0;
+        text-align: center;
+        padding: 15px;
+    }
+}
+
+
+.notification-container {
+    position: fixed;
+    top: 10px;
+    right: 150px;
+    z-index: 1000;
+  }
+  
+  .notification {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    background-color: #f2f2f2;
+    color: #333;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .notification-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    background-image: url('notifications.png');
+    background-size: cover;
+    height: 40px;
+    margin-right: 10px;
+  }

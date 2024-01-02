@@ -1,0 +1,50 @@
+.like {
+    display: flex;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+    user-select: none;
+}
+
+.like .heart-icon {
+    user-select: none;
+    transition: transform 0.25s ease-out;
+    /*scale: 2;*/
+    margin-right: 5px;
+}
+
+.like .heart-icon .fill-color-shape {
+    fill: transparent;
+}
+
+.like .heart-icon.isLiked {
+    filter: drop-shadow(0 3px 5px #c44133);
+}
+
+.like .heart-icon.isLiked .fill-color-shape {
+    transition: fill 0.5s linear;
+    fill: #e74c3c;
+}
+
+.like .heart-icon:hover {
+    transform: translate(0, calc(-20% - 3px)) scale(1.03);
+}
+
+.like .number-of-likes {
+    font-size: 20px;
+    user-select: none;
+    transform: translate(0, -3px);
+    color: #292d34;
+}
+
+.follower {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url(png-transparent-red-valentines-day-a-of-a-red-heart-love-heart-line.png);
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перетаскивание в корзину</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        #cart {
+            border: 2px solid #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .product {
+            border: 2px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            cursor: grab;
+        }
+        
+        .cart-items {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="cart">
+        <h2>Корзина</h2>
+        <ul class="cart-items"></ul>
+        <p id="total">Итого: $0.00</p>
+    </div>
+
+    <div class="product" data-price="10" data-name="Товар 1" draggable="true">
+        <p>Товар 1 - $10.00</p>
+    </div>
+
+    <div class="product" data-price="15" data-name="Товар 2" draggable="true">
+        <p>Товар 2 - $15.00</p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var total = 0;
+
+            $(".product").on("dragstart", function(event) {
+                var name = $(this).data("name");
+                var price = $(this).data("price");
+                event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify({
+                    name: name,
+                    price: price
+                }));
+            });
+
+            $("#cart").on("dragover", function(event) {
+                event.preventDefault();
+            });
+
+            $("#cart").on("drop", function(event) {
+                event.preventDefault();
+                var data = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
+                var itemName = data.name;
+                var itemPrice = data.price;
+
+                // Проверяем, есть ли уже такой товар в корзине
+                var existingItem = $(".cart-items li:contains('" + itemName + "')");
+                if (existingItem.length) {
+                    // Если товар уже есть в корзине, увеличиваем количество
+                    var quantity = parseInt(existingItem.attr("data-quantity")) + 1;
+                    existingItem.attr("data-quantity", quantity);
+                    existingItem.text(itemName + " - $" + (itemPrice * quantity).toFixed(2));
+                } else {
+                    // Если товара нет в корзине, добавляем новый элемент
+                    $(".cart-items").append("<li data-quantity='1'>" + itemName + " - $" + itemPrice.toFixed(2) + "</li>");
+                }
+
+                total += itemPrice;
+                $("#total").text("Итого: $" + total.toFixed(2));
+            });
+        });
+    </script>
+
+</body>
+
+</html>

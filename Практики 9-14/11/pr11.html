@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина товаров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        .item {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        
+        #filterInputs {
+            margin-top: 20px;
+        }
+        
+        #filterResult {
+            margin-top: 20px;
+        }
+        
+        #cartTable,
+        #filterTable {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        #cartTable th,
+        #cartTable td,
+        #filterTable th,
+        #filterTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        #cartTable th,
+        #filterTable th {
+            background-color: #f2f2f2;
+        }
+        
+        #additionalButtons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Корзина товаров</h2>
+
+    <div>
+        <label for="itemName">Название товара:</label>
+        <input type="text" id="itemName">
+        <label for="itemPrice">Цена за единицу:</label>
+        <input type="number" id="itemPrice" min="0" step="0.01">
+        <button onclick="addItem()">Добавить товар</button>
+    </div>
+
+    <div id="cart">
+
+    </div>
+
+    <button onclick="changeItem()">Изменить товар</button>
+    <button onclick="clearCart()">Очистить корзину</button>
+
+    <div id="sortButtons">
+        <button onclick="sortItemsAscending()">Сортировать по возрастанию цены</button>
+        <button onclick="sortItemsDescending()">Сортировать по убыванию цены</button>
+    </div>
+
+
+    <div id="filterInputs">
+        <label for="aInput">Значение a:</label>
+        <input type="number" id="aInput" min="0" step="0.01">
+        <label for="bInput">Значение b:</label>
+        <input type="number" id="bInput" min="0" step="0.01">
+        <button onclick="applyFilter()">Применить фильтр</button>
+    </div>
+
+    <div id="additionalButtons">
+        <button onclick="sortFilteredItemsAscending()">Сортировать отфильтрованные по возрастанию цены</button>
+        <button onclick="sortFilteredItemsDescending()">Сортировать отфильтрованные по убыванию цены</button>
+    </div>
+
+    <table id="cartTable">
+        <thead>
+            <tr>
+                <th>Название товара</th>
+                <th>Количество</th>
+                <th>Цена за единицу</th>
+                <th>Итого</th>
+                <th>Управление</th>
+            </tr>
+        </thead>
+        <tbody id="cartTableBody">
+
+        </tbody>
+    </table>
+
+    <!-- Таблица для отображения результатов фильтрации -->
+    <table id="filterTable">
+        <thead>
+            <tr>
+                <th>Название товара</th>
+                <th>Количество</th>
+                <th>Цена за единицу</th>
+                <th>Итого</th>
+            </tr>
+        </thead>
+        <tbody id="filterTableBody">
+
+        </tbody>
+    </table>
+
+    <script>
+        let cartItems = [{
+            name: 'Товар 1',
+            quantity: 1,
+            price: 10
+        }, {
+            name: 'Товар 2',
+            quantity: 1,
+            price: 20
+        }, {
+            name: 'Товар 3',
+            quantity: 1,
+            price: 30
+        }, {
+            name: 'Товар 4',
+            quantity: 1,
+            price: 40
+        }];
+
+        function displayCart() {
+            const cartTableBody = document.getElementById('cartTableBody');
+            cartTableBody.innerHTML = '';
+
+            cartItems.forEach((item, index) => {
+                const row = cartTableBody.insertRow();
+                row.insertCell(0).textContent = item.name;
+                row.insertCell(1).textContent = item.quantity;
+                row.insertCell(2).textContent = `$${item.price.toFixed(2)}`;
+                row.insertCell(3).textContent = `$${(item.quantity * item.price).toFixed(2)}`;
+                row.insertCell(4).innerHTML = `<button onclick="increaseQuantity(${index})">Увеличить количество</button>`;
+            });
+
+
+            const totalPrice = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+            const totalRow = cartTableBody.insertRow();
+            totalRow.insertCell(0).textContent = 'Итоговая стоимость';
+            totalRow.insertCell(1).textContent = '';
+            totalRow.insertCell(2).textContent = '';
+            totalRow.insertCell(3).textContent = `$${totalPrice.toFixed(2)}`;
+            totalRow.insertCell(4).textContent = '';
+        }
+
+
+        function increaseQuantity(index) {
+            cartItems[index].quantity++;
+            displayCart();
+        }
+
+        function changeItem() {
+            const randomIndex = Math.floor(Math.random() * cartItems.length);
+            cartItems[randomIndex].name = 'Новый товар';
+            displayCart();
+        }
+
+
+        function clearCart() {
+            cartItems = [];
+            displayCart();
+        }
+
+
+        function sortItemsAscending() {
+            cartItems.sort((a, b) => a.price - b.price);
+            displayCart();
+        }
+
+
+        function sortItemsDescending() {
+            cartItems.sort((a, b) => b.price - a.price);
+            displayCart();
+        }
+
+
+        function addItem() {
+            const itemNameInput = document.getElementById('itemName');
+            const itemPriceInput = document.getElementById('itemPrice');
+
+            const newItemName = itemNameInput.value.trim();
+            const newItemPrice = parseFloat(itemPriceInput.value);
+
+            if (newItemName !== '' && !isNaN(newItemPrice) && newItemPrice >= 0) {
+                cartItems.push({
+                    name: newItemName,
+                    quantity: 1,
+                    price: newItemPrice
+                });
+                itemNameInput.value = '';
+                itemPriceInput.value = '';
+                displayCart();
+            }
+        }
+
+
+        function applyFilter() {
+            const aInput = parseFloat(document.getElementById('aInput').value);
+            const bInput = parseFloat(document.getElementById('bInput').value);
+
+            const filteredArray = filterArray(cartItems, aInput, bInput);
+            displayFilteredTable(filteredArray);
+        }
+
+
+        function filterArray(arr, a, b) {
+            return arr.filter(item => item.price >= a && item.price <= b);
+        }
+
+
+        function sortFilteredItemsAscending() {
+            const aInput = parseFloat(document.getElementById('aInput').value);
+            const bInput = parseFloat(document.getElementById('bInput').value);
+
+            const filteredArray = filterArray(cartItems, aInput, bInput);
+            filteredArray.sort((a, b) => a.price - b.price);
+
+            displayFilteredTable(filteredArray);
+        }
+
+
+        function sortFilteredItemsDescending() {
+            const aInput = parseFloat(document.getElementById('aInput').value);
+            const bInput = parseFloat(document.getElementById('bInput').value);
+
+            const filteredArray = filterArray(cartItems, aInput, bInput);
+            filteredArray.sort((a, b) => b.price - a.price);
+
+            displayFilteredTable(filteredArray);
+        }
+
+        function displayFilteredTable(filteredArray) {
+            const filterTableBody = document.getElementById('filterTableBody');
+            filterTableBody.innerHTML = '';
+
+            filteredArray.forEach(item => {
+                const row = filterTableBody.insertRow();
+                row.insertCell(0).textContent = item.name;
+                row.insertCell(1).textContent = item.quantity;
+                row.insertCell(2).textContent = `$${item.price.toFixed(2)}`;
+                row.insertCell(3).textContent = `$${(item.quantity * item.price).toFixed(2)}`;
+            });
+        }
+
+        displayCart();
+    </script>
+
+</body>
+
+</html>

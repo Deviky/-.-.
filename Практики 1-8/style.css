@@ -1,0 +1,547 @@
+
+.po{
+  width: 300px;
+  height: 100px;
+  top:0;
+}
+
+.video-container {
+    position: relative;
+    display: flex;
+    top: 100px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* padding-top: 50px; */
+  }
+  
+  .video-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .video-container:hover::before {
+    opacity: 1;
+  }
+  
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    transition: transform 0.3s ease;
+  }
+  
+  .video-container:hover video {
+    transform: scale(1.1);
+  }
+  
+  .caption {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+  
+  .video-container:hover .caption {
+    opacity: 1;
+  }
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+
+
+
+
+
+
+.notification-container {
+    position: fixed;
+    top: 10px;
+    right: 150px;
+    z-index: 1000;
+  }
+  
+  .notification {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    background-color: #f2f2f2;
+    color: #333;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .notification-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    background-image: url('notifications.png');
+    background-size: cover;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    
+}
+
+  /* .notification-icon {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background-image: url('notifications.png');
+    background-size: cover;
+  }
+   */
+  .notification-list {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -10px;
+    width: 220px;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: none;
+    z-index: 999;
+  }
+  
+  .notification:hover .notification-list {
+    display: block;
+  }
+  
+  .notification-list-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .notification-list-item img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .notification-number {
+    /* background-image: url('number.png'); */
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
+  }
+  
+.notification-text {
+    margin-left: 10px;
+  }
+
+.but{
+    display: flex;
+    justify-content: center;
+}
+.button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e8e8e8;
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .button::before, .button::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .button::before {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .button::after {
+    background-color: rgba(0, 0, 0, 0.2);
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+
+  .button:hover {
+    transform: scale(1.1);
+  }
+
+  .button:hover::before {
+    transform: scaleX(1);
+  }
+
+  .button:hover::after {
+    transform: scaleX(1);
+  }
+
+
+
+.menu {
+    position:fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    display:flex;
+    height: 50px;
+    text-align: right;
+    font-family: 'Open Sans', 'sans-serif';
+  }
+  
+  a{
+    color:rgb(231, 171, 232);
+  }
+  .menu-icon {
+    max-height: 24px;
+    max-width: 24px;
+    cursor: pointer;
+    visibility: hidden;
+    display: none;
+    transition: 0.5s;
+  }
+  
+  
+  
+  menu nav ul {
+    list-style: none;
+    position: relative;
+    left: 20px;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  
+
+  @media (max-width: 768px){
+  
+  .menu {
+      display: block;
+  }
+  .video-container{
+    display: block;
+  }
+  .card-content{
+    display: block;
+  }
+}
+  
+  
+  .menu-wrapper:hover .submenu {
+      visibility: visible;
+      opacity: 1;
+      transform: translate(-50%, 0);
+  }
+  
+  .menu-wrapper:hover .menu-icon {
+    animation: shake 2s ease-in-out infinite;
+  }
+  /* .submenu a {
+  
+  } */
+
+  .menu-wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      visibility: visible;
+  }
+  .menu-icon {
+      position: absolute;
+      display: block;
+      visibility: visible;
+      top: 12px;
+      right: 20px;
+  }
+  .menu nav{
+      visibility: hidden;
+  }
+
+
+
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    margin: 40px;
+    border: 1px solid #ddd;
+
+}
+
+
+h2 {
+    color: #444;
+}
+
+
+h3 {
+    color: #666;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+}
+
+
+p {
+    color: #777;
+}
+
+
+a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+aside {
+    width: 350px;
+    padding-inline: 20px;
+}
+
+
+aside h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+aside li {
+    margin-bottom: 5px;
+}
+
+
+
+aside a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+
+
+aside a:hover {
+    color: #ff6600;
+}
+
+
+
+ol {
+    padding-left: 20px;
+}
+
+ol li {
+    text-decoration: blink;
+    list-style: Upper-roman;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    color: #666;
+    font-style: italic;
+}
+
+main {
+    display: flex;
+    margin-top: 150px;
+    flex-direction: column;
+}
+
+main img{
+    max-width: 100%;
+    height: auto;
+
+}
+
+
+.card_cont{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+.card {
+    display: inline-block;
+    flex-direction: row;
+    align-items: center;
+    width: 300px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-content {
+    flex-grow: 1;
+    margin-left: 150px;
+    padding: 0px;
+    
+  }
+  
+  .card-title {
+    
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .card-description {
+    font-size: 14px;
+  }
+  .card-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .card-image {
+    float: left;
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    transition: transform 0.3s;
+  }
+  
+  .card:hover .card-image {
+    transform: scale(0);
+  }
+  
+  .card::before {
+    content: attr(data-description); /* Описание карточки */
+    opacity: 0; /* Начальная невидимость описания */
+    transition: opacity 0.3s; /* Плавный переход видимости */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .card:hover::before {
+    opacity: 1; /* Изменение видимости описания при наведении */
+  }
+
+
+
+  
+.but{
+    display: flex;
+    justify-content: center;
+}
+.button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e8e8e8;
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .button::before, .button::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .button::before {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .button::after {
+    background-color: rgba(0, 0, 0, 0.2);
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+
+  .button:hover {
+    transform: scale(1.1);
+  }
+
+  .button:hover::before {
+    transform: scaleX(1);
+  }
+
+  .button:hover::after {
+    transform: scaleX(1);
+  }
+

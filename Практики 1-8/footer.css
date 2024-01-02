@@ -1,0 +1,18 @@
+footer {
+    background: linear-gradient(to top, #F41864, 70%, #FDEEE7); 
+    color: #999;
+    padding: 10px;
+    text-align: center;
+}
+
+
+
+.ft{
+    display: inline;
+}
+
+
+
+address {
+    font-style: normal;
+}
